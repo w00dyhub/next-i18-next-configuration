@@ -1,7 +1,8 @@
 {
-  "name": "my-app",
+  "name": "next-i18-next-configuration",
   "version": "0.1.0",
   "private": true,
+  "author": "nuttawut chaichuay",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

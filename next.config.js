@@ -1,13 +1,16 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require('./next-i18next.config')
 
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  i18n,
-  webpack: (config) => {
-    config.resolve.fallback = {
-      fs: false
+  webpack: (config, { isServer }) => {
+    // don't resolve 'fs' module on the client to prevent this error on build
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      }
     }
     return config
   }

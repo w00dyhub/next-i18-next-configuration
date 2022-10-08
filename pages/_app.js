@@ -50,17 +50,24 @@ App.getInitialProps = async ({ Component, ctx }) => {
   }
   const { serverSideTranslations } = require('next-i18next/serverSideTranslations')
   const serverCookie = new ServerCookie(ctx.req, ctx.res)
-  const initialLocale = serverCookie.get('lang-i18next')
+  const initialLocale = serverCookie.get('lang-i18next') || ''
+  const locales = ['en', 'th']
   /**
    * by default, next-i18next will send only the active locale down to the client
    * this case the translations for both en and th locales will always be loaded regardless of the current language
    * ref => https://github.com/i18next/next-i18next
    */
-  const { _nextI18Next } = await serverSideTranslations(initialLocale, ['common'], null, ['en', 'th'])
+  const { _nextI18Next } = await serverSideTranslations(initialLocale, ['common'], {
+    debug: true,
+    i18n: {
+      defaultLocale: 'th',
+      locales,
+    },
+  }, locales)
   return {
     pageProps: {
       ...pageProps,
-      _nextI18Next: _nextI18Next
+      _nextI18Next
     }
   }
 }

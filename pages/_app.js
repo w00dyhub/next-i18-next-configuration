@@ -34,7 +34,7 @@ function App({ Component, pageProps }) {
   )
 }
 
-MyApp.getInitialProps = async ({ Component, ctx }) => {
+App.getInitialProps = async ({ Component, ctx }) => {
   const isServer = ctx.req
   const pageProps = {
     ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
